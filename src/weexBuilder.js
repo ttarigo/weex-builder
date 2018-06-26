@@ -149,6 +149,10 @@ class WeexBuilder extends WebpackBuilder {
             options: vueLoaderConfig({ useVue: false })
           }]
         });
+        configs.module.rules.push({
+          test: /\.(png|jpg|gif)$/,  
+          use: 'file-loader?name=[path][name].[ext]&outputPath=img/&publicPath=output/',
+        })
         configs.node = {
           setImmediate: false,
           dgram: 'empty',
