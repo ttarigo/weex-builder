@@ -153,6 +153,10 @@ class WeexBuilder extends WebpackBuilder {
           test: /\.(png|jpg|gif)$/,  
           use: 'file-loader?name=[name].[ext]&outputPath=resource/images/&publicPath=output/',
         })
+        configs.module.rules.push({
+          test: /\.(html)$/,  
+          use: 'file-loader?name=[name].[ext]&outputPath=web/&publicPath=output/',
+        })
         configs.node = {
           setImmediate: false,
           dgram: 'empty',
