@@ -151,7 +151,7 @@ class WeexBuilder extends WebpackBuilder {
         });
         configs.module.rules.push({
           test: /\.(png|jpg|gif)$/,  
-          use: 'file-loader?name=[path][name].[ext]&outputPath=img/&publicPath=output/',
+          use: 'file-loader?name=[name].[ext]&outputPath=resource/images/&publicPath=output/',
         })
         configs.node = {
           setImmediate: false,
