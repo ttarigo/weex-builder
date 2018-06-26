@@ -20,6 +20,12 @@ class WeexBuilder extends WebpackBuilder {
     const sourceExt = path.extname(this.sourceDef);
     let dir;
     let filename;
+    var copy = require('copy-webpack-plugin');
+	  var copyArr = [
+    	{from: 'src/web', to: "web"},
+    	{from: 'src/resource', to: "resource"},
+	  ];
+	  var copyPlugin = new copy(copyArr);
     const plugins = [
       /*
        * Plugin: BannerPlugin
@@ -30,7 +36,8 @@ class WeexBuilder extends WebpackBuilder {
         banner: '// { "framework": "Vue"} \n',
         raw: true,
         exclude: 'Vue'
-      })
+      }),
+      copyPlugin
     ];
     // ./bin/weex-builder.js test dest --filename=[name].web.js
     if (this.options.filename) {
@@ -149,14 +156,14 @@ class WeexBuilder extends WebpackBuilder {
             options: vueLoaderConfig({ useVue: false })
           }]
         });
-        configs.module.rules.push({
-          test: /\.(png|jpg|gif)$/,  
-          use: 'file-loader?name=[name].[ext]&outputPath=resource/images/&publicPath=output/',
-        })
-        configs.module.rules.push({
-          test: /\.(html)$/,  
-          use: 'file-loader?name=[name].[ext]&outputPath=web/&publicPath=output/',
-        })
+//         configs.module.rules.push({
+//           test: /\.(png|jpg|gif)$/,  
+//           use: 'file-loader?name=[name].[ext]&outputPath=resource/images/&publicPath=output/',
+//         })
+//         configs.module.rules.push({
+//           test: /\.(html)$/,  
+//           use: 'file-loader?name=[name].[ext]&outputPath=web/&publicPath=output/',
+//         })
         configs.node = {
           setImmediate: false,
           dgram: 'empty',
